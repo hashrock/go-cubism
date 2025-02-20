@@ -1,20 +1,39 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
+import Square from './components/Square.vue'
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="background">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" fill="white"/>
+    </svg>
+    <div class="content">
+      <Square />
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
+.background {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
