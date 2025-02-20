@@ -20,6 +20,7 @@ const emit = defineEmits<{
       :fill="mode === 5 ? 'black' : 'white'"
       stroke="black"
       stroke-width="1"
+      :class="{ 'animate-dash': mode === 1 }"
     />
     <line
       v-if="mode === 2"
@@ -29,6 +30,7 @@ const emit = defineEmits<{
       :y2="y + 100"
       stroke="black"
       stroke-width="1"
+      class="animate-dash diagonal"
     />
     <path
       v-if="mode === 3"
@@ -38,7 +40,34 @@ const emit = defineEmits<{
     <path
       v-if="mode === 4"
       :d="`M ${x} ${y + 100} L ${x + 100} ${y + 100} L ${x} ${y} Z`"
-      fill="black"
+      fill="none"
+      stroke="black"
+      stroke-width="2"
+      class="animate-dash triangle"
     />
   </g>
-</template> 
+</template>
+
+<style scoped>
+.animate-dash {
+  stroke-dasharray: 300;
+  animation: dash 0.5s linear forwards;
+}
+
+.diagonal {
+  stroke-dasharray: 300;
+}
+
+.triangle {
+  stroke-dasharray: 300;
+}
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 300;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+</style> 
