@@ -1,13 +1,28 @@
+<script setup lang="ts">
+defineProps<{
+  x: number
+  y: number
+}>()
+</script>
+
 <template>
-  <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+  <g>
     <rect
-      x="0"
-      y="0"
+      :x="x"
+      :y="y"
       width="100"
       height="100"
       fill="none"
       stroke="black"
       stroke-width="1"
     />
-  </svg>
+    <line
+      :x1="x"
+      :y1="y"
+      :x2="x + 100"
+      :y2="y + 100"
+      stroke="black"
+      stroke-width="1"
+    />
+  </g>
 </template> 

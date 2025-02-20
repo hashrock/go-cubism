@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Square from './components/Square.vue'
+
 const gridSize = 20 // 20x20のグリッド
 const squares = Array.from({ length: gridSize * gridSize }, (_, i) => ({
   x: (i % gridSize) * 100,
@@ -10,16 +12,11 @@ const squares = Array.from({ length: gridSize * gridSize }, (_, i) => ({
   <div class="background">
     <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000">
       <rect width="100%" height="100%" fill="white"/>
-      <rect
+      <Square
         v-for="(pos, i) in squares"
         :key="i"
         :x="pos.x"
         :y="pos.y"
-        width="100"
-        height="100"
-        fill="none"
-        stroke="black"
-        stroke-width="1"
       />
     </svg>
   </div>
