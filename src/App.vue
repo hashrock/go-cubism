@@ -3,9 +3,10 @@ import { ref, onMounted, watch } from 'vue'
 import Square from './components/Square.vue'
 
 const gridSize = 20 // 20x20のグリッド
+const squareSize = 150 // 1.5倍の100px
 const squares = Array.from({ length: gridSize * gridSize }, (_, i) => ({
-  x: (i % gridSize) * 100,
-  y: Math.floor(i / gridSize) * 100
+  x: (i % gridSize) * squareSize,
+  y: Math.floor(i / gridSize) * squareSize
 }))
 
 // URLからの状態復元
@@ -51,13 +52,14 @@ const handleClick = (index: number) => {
 
 <template>
   <div class="background">
-    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 3000">
       <rect width="100%" height="100%" fill="white"/>
       <Square
         v-for="(pos, i) in squares"
         :key="i"
         :x="pos.x"
         :y="pos.y"
+        :size="squareSize"
         :mode="squareModes[i]"
         @click="handleClick(i)"
       />

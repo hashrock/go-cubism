@@ -2,6 +2,7 @@
 const props = defineProps<{
   x: number
   y: number
+  size: number
   mode?: number
 }>()
 
@@ -15,8 +16,8 @@ const emit = defineEmits<{
     <rect
       :x="x"
       :y="y"
-      width="100"
-      height="100"
+      :width="size"
+      :height="size"
       :fill="mode === 5 ? 'black' : 'white'"
       stroke="black"
       stroke-width="1"
@@ -26,20 +27,20 @@ const emit = defineEmits<{
       v-if="mode === 2"
       :x1="x"
       :y1="y"
-      :x2="x + 100"
-      :y2="y + 100"
+      :x2="x + size"
+      :y2="y + size"
       stroke="black"
       stroke-width="1"
       class="animate-dash diagonal"
     />
     <path
       v-if="mode === 3"
-      :d="`M ${x + 100} ${y} L ${x + 100} ${y + 100} L ${x} ${y} Z`"
+      :d="`M ${x + size} ${y} L ${x + size} ${y + size} L ${x} ${y} Z`"
       fill="black"
     />
     <path
       v-if="mode === 4"
-      :d="`M ${x} ${y + 100} L ${x + 100} ${y + 100} L ${x} ${y} Z`"
+      :d="`M ${x} ${y + size} L ${x + size} ${y + size} L ${x} ${y} Z`"
       fill="none"
       stroke="black"
       stroke-width="2"
@@ -48,8 +49,8 @@ const emit = defineEmits<{
     <rect
       :x="x"
       :y="y"
-      width="100"
-      height="100"
+      :width="size"
+      :height="size"
       class="hover-overlay"
       fill="gray"
       fill-opacity="0"
@@ -60,21 +61,21 @@ const emit = defineEmits<{
 
 <style scoped>
 .animate-dash {
-  stroke-dasharray: 300;
+  stroke-dasharray: 450;
   animation: dash 0.5s linear forwards;
 }
 
 .diagonal {
-  stroke-dasharray: 300;
+  stroke-dasharray: 450;
 }
 
 .triangle {
-  stroke-dasharray: 300;
+  stroke-dasharray: 450;
 }
 
 @keyframes dash {
   from {
-    stroke-dashoffset: 300;
+    stroke-dashoffset: 450;
   }
   to {
     stroke-dashoffset: 0;
