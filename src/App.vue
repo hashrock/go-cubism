@@ -1,13 +1,47 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import Square from './components/Square.vue'
 
 const gridSize = 20 // 20x20のグリッド
-const squareModes = ref(Array(gridSize * gridSize).fill(1))
 const squares = Array.from({ length: gridSize * gridSize }, (_, i) => ({
   x: (i % gridSize) * 100,
   y: Math.floor(i / gridSize) * 100
 }))
+
+// URLからの状態復元
+const loadStateFromUrl = () => {
+  const params = new URLSearchParams(window.location.search)
+  const state = params.get('state')
+  if (state) {
+    try {
+      const decoded = atob(state)
+      const modes = decoded.split('').map(char => parseInt(char))
+      squareModes.value = modes.length === gridSize * gridSize ? modes : Array(gridSize * gridSize).fill(1)
+    } catch {
+      squareModes.value = Array(gridSize * gridSize).fill(1)
+    }
+  } else {
+    squareModes.value = Array(gridSize * gridSize).fill(1)
+  }
+}
+
+// 状態をURLに保存
+const saveStateToUrl = () => {
+  const state = btoa(squareModes.value.join(''))
+  const url = new URL(window.location.href)
+  url.searchParams.set('state', state)
+  window.history.replaceState({}, '', url)
+}
+
+const squareModes = ref<number[]>([])
+
+onMounted(() => {
+  loadStateFromUrl()
+})
+
+watch(squareModes, () => {
+  saveStateToUrl()
+}, { deep: true })
 
 const handleClick = (index: number) => {
   const currentMode = squareModes.value[index]
