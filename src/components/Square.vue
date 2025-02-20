@@ -11,7 +11,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <g @click="$emit('click', $event)">
+  <g @click="$emit('click', $event)" class="square-group">
     <rect
       :x="x"
       :y="y"
@@ -45,6 +45,16 @@ const emit = defineEmits<{
       stroke-width="2"
       class="animate-dash triangle"
     />
+    <rect
+      :x="x"
+      :y="y"
+      width="100"
+      height="100"
+      class="hover-overlay"
+      fill="gray"
+      fill-opacity="0"
+      stroke="none"
+    />
   </g>
 </template>
 
@@ -69,5 +79,17 @@ const emit = defineEmits<{
   to {
     stroke-dashoffset: 0;
   }
+}
+
+.square-group {
+  cursor: pointer;
+}
+
+.hover-overlay {
+  transition: fill-opacity 0.2s ease;
+}
+
+.square-group:hover .hover-overlay {
+  fill-opacity: 0.1;
 }
 </style> 
