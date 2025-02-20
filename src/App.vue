@@ -1,11 +1,18 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import Square from './components/Square.vue'
 
 const gridSize = 20 // 20x20のグリッド
+const squareModes = ref(Array(gridSize * gridSize).fill(1))
 const squares = Array.from({ length: gridSize * gridSize }, (_, i) => ({
   x: (i % gridSize) * 100,
   y: Math.floor(i / gridSize) * 100
 }))
+
+const handleClick = (index: number) => {
+  const currentMode = squareModes.value[index]
+  squareModes.value[index] = currentMode >= 5 ? 1 : currentMode + 1
+}
 </script>
 
 <template>
@@ -17,6 +24,8 @@ const squares = Array.from({ length: gridSize * gridSize }, (_, i) => ({
         :key="i"
         :x="pos.x"
         :y="pos.y"
+        :mode="squareModes[i]"
+        @click="handleClick(i)"
       />
     </svg>
   </div>
