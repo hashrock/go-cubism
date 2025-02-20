@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import Square from './components/Square.vue'
-
 const gridSize = 20 // 20x20のグリッド
 const squares = Array.from({ length: gridSize * gridSize }, (_, i) => ({
   x: (i % gridSize) * 100,
